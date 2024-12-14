@@ -1,0 +1,64 @@
+import math
+
+
+class MyTrie:
+
+
+    
+
+    f"function to construct Trie from given pattern (e.g. ATAGA ATC GAT)"
+    def trie_construction (pattern, self):
+
+        self = []
+
+        root_node = dict()
+        root_node['char'] = 'root'
+        root_node['children'] = []
+
+        self.append(root_node)
+
+        patterns = pattern.split()
+
+        for polynucleotide in patterns:
+            current_node = root_node
+            for nucleotide_index in range(len(polynucleotide)):
+                next_node = True
+                if len(current_node['children']) > 0:
+                    for child in current_node['children']:
+                        if self[child]['char'] == polynucleotide[nucleotide_index]:
+                            current_node = self[child]
+                            next_node = False
+                            break
+                if next_node:
+                    current_node['children'].append(len(self))
+                    next_node = dict()
+                    next_node['char'] = polynucleotide[nucleotide_index]
+                    next_node['children'] = []
+                    current_node = next_node
+                    self.append(current_node)
+        
+
+
+        f"Allows for visualization of trie post-construction"
+        def visualize_trie (self):
+            
+            def traverse_trie (node):
+                for child in self[node]['children']:
+                    print(str(node) + " " + str(child) + " " + str(self[child]['char']))
+                    if self[node]['children']:
+                        traverse_trie (child)
+
+            for children in self[0]['children']:
+                print(str(0) + " " + str(children) + " " + str(self[children]['char']))
+                traverse_trie(children)
+        
+        visualize_trie(self)
+
+
+
+
+
+
+
+
+MyTrie.trie_construction("ATAGA ATC GAT",MyTrie)
