@@ -6,18 +6,39 @@ class MyTrie:
 
     
 
-    f"function to construct Trie from given pattern (e.g. ATAGA ATC GAT)"
-    def trie_construction (pattern, self):
+   
+    '''
+    Function to construct Trie from given pattern 
+    Example Input: ATAGA ATC GAT
+    Example Output:
+    0 1 A
+    1 2 T
+    2 3 A
+    3 4 G
+    4 5 A
+    2 6 C
+    0 7 G
+    7 8 A
+    8 9 T
+    '''
 
-        self = []
+    def __init__ (self):
+        patterns = "ATAGA ATC GAT"
+        trie = self.trieConstruction (patterns)
+        self.visualizeTrie(trie)
 
+    
+
+    def trieConstruction (self, patterns):
+        trie = []
         root_node = dict()
         root_node['char'] = 'root'
         root_node['children'] = []
 
-        self.append(root_node)
+        trie.append(root_node)
 
-        patterns = pattern.split()
+        
+        patterns = patterns.split()
 
         for polynucleotide in patterns:
             current_node = root_node
@@ -25,50 +46,36 @@ class MyTrie:
                 next_node = True
                 if len(current_node['children']) > 0:
                     for child in current_node['children']:
-                        if self[child]['char'] == polynucleotide[nucleotide_index]:
-                            current_node = self[child]
+                        if trie[child]['char'] == polynucleotide[nucleotide_index]:
+                            current_node = trie[child]
                             next_node = False
                             break
                 if next_node:
-                    current_node['children'].append(len(self))
+                    current_node['children'].append(len(trie))
                     next_node = dict()
                     next_node['char'] = polynucleotide[nucleotide_index]
                     next_node['children'] = []
                     current_node = next_node
-                    self.append(current_node)
+                    trie.append(current_node)
+
+        return trie
         
 
 
-        f"Allows for visualization of trie post-construction"
-        def visualize_trie (self):
-            
-            def traverse_trie (node):
-                for child in self[node]['children']:
-                    print(str(node) + " " + str(child) + " " + str(self[child]['char']))
-                    if self[node]['children']:
-                        traverse_trie (child)
-
-            for children in self[0]['children']:
-                print(str(0) + " " + str(children) + " " + str(self[children]['char']))
-                traverse_trie(children)
         
-        visualize_trie(self)
+    '''Allows for visualization of trie post-construction'''
+    def visualizeTrie (self, trie):
+
+        def traverseTrie (node):
+            for child in trie[node]['children']:
+                print(str(node) + " " + str(child) + " " + str(trie[child]['char']))
+                if trie[node]['children']:
+                    traverseTrie (child)
+        print(trie)
+        for children in trie[0]['children']:
+            print(str(0) + " " + str(children) + " " + str(trie[children]['char']))
+            traverseTrie(children)
 
 
-
-
-
-
-
-
-MyTrie.trie_construction("ATAGA ATC GAT",MyTrie)
-f"Will return a list of chracters with branching points:
-0 1 A
-1 2 T
-2 3 A
-3 4 G
-4 5 A
-2 6 C
-0 7 G
-7 8 A
-8 9 T"
+if __name__ == "__main__":
+    MyTrie()
