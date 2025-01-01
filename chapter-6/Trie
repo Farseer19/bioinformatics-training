@@ -62,6 +62,7 @@ class MyTrie:
     
 
 
+
     '''Allows for visualization of trie post-construction'''
     def visualizeTrie (self, trie):
         
@@ -78,3 +79,4 @@ class MyTrie:
  
 if __name__ == "__main__":
     MyTrie()
+
